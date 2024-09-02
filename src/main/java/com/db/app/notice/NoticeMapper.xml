@@ -9,8 +9,4 @@
   		SELECT * FROM NOTICE ORDER BY BOARD_NUM DESC
   	</select>
   
-    <insert id="add">
-  		INSERT INTO NOTICE 
-		VALUES (3, 'w3', 't3', 'c3', NOW());
-  	</insert>
   </mapper>

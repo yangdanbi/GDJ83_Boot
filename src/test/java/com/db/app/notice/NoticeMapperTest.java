@@ -20,9 +20,7 @@ class NoticeMapperTest {
 			System.out.println(noticeVO.toString());
 		}
 		assertNotEquals(0, ar.size());
-//		
-//		int result = noticeDAO.add();
-//		assertEquals(1, result);
+
 	}
 
 }
