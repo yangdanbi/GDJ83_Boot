@@ -67,6 +67,7 @@ public class QnaControllerTest {
 				.andDo(print());
 
 	}
+//	/isOk() 는 200만
 	@Test
 	public void add()throws Exception{
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
