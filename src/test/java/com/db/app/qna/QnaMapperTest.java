@@ -14,6 +14,17 @@ import com.db.app.util.Pager;
 class QnaMapperTest {
 	@Autowired
 	private QnaMapper qnaMapper;
+	
+	@Test
+	void getDetailTest() throws Exception {
+		
+		QnaVO qnaVO = new QnaVO();
+		qnaVO.setBoardNum(100L);
+		qnaVO = qnaMapper.getDetail(qnaVO);
+		
+		assertNotNull(qnaVO);
+		
+	}
 
 //	@Test
 //	void addTest() throws Exception {

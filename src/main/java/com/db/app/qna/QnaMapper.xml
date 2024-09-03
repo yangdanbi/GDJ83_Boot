@@ -20,12 +20,33 @@
 	  	ORDER BY BOARD_NUM DESC
 	  	LIMIT #{startRow}, #{perPage}
 	  </select>
-	  
-	  <insert id="add" parameterType="QnaVO">
+	  <!--AUTO_INCREMENT 하고 난 값을 boardNum에 넣는다?  -->
+	  <insert id="add" parameterType="QnaVO" useGeneratedKeys="true" keyProperty="boardNum">
+
 	  	INSERT INTO QNA
 	  	VALUES (
-	  	#{boardNum} , #{boardWriter},#{boardTitle},#{boardContents},NOW(),#{ref},0,0
+	  			#{boardNum}
+	  			, #{boardWriter}
+	  			, #{boardTitle}
+	  			, #{boardContents}
+	  			, NOW()
+	  			, #{ref}
+	  			, 0
+	  			, 0
 	  	)
 	  </insert>
+	  <update id="refUpdate" parameterType="QnaVO">
+	  		UPDATE QNA 
+	  			SET REF = #{boardNum}
+	  		WHERE BOARD_NUM = #{boardNum}
+	  
+	  </update>
+	  <select id="getDetail" parameterType="QnaVO" resultType="QnaVO">
+	  	SELECT *
+	    FROM QNA
+	    WHERE BOARD_NUM = #{boardNum} 
+	  	
+	  
+	  </select>
   
   </mapper>

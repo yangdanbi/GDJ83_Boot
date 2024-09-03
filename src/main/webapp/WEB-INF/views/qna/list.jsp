@@ -30,6 +30,6 @@
 		
 		</tbody>
 	</table>
-
+	<a href="./add">add</a>
 </body>
 </html>
