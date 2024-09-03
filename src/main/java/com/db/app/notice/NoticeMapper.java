@@ -7,7 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface NoticeMapper {
 	
-	public List<NoticeVO> getList() throws Exception;
+	//long 타입 num을 보냄
+	public List<NoticeVO> getList(Long num) throws Exception;
 	public int add() throws Exception;
 
 }
