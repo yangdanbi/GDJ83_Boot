@@ -16,6 +16,7 @@
 	
 	<c:forEach items="${vo.ar}" var="f">
 		<img src="/files/${board}/${f.fileName}">	
+		<a href="./fileDown?fileNum=${f.fileNum}">${f.oriName}" </a>
 	<!--D:/upload 까지 매핑  -->
 	</c:forEach>
 </body>

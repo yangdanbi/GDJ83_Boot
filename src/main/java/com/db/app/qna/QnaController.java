@@ -27,6 +27,7 @@ public class QnaController {
 	@Value("${board.qna}")
 	private String board;
 	
+	//board 속성명으로 qna가 감
 	@ModelAttribute("board")
 	public String getBoard() {
 		return this.board;
@@ -58,5 +59,14 @@ public class QnaController {
 		qnaVO = qnaService.getDetail(qnaVO);
 		model.addAttribute("vo",qnaVO);
 	}
+	
+	@GetMapping("fileDown")
+	public String fileDown(QnaFileVO qnaFileVO,Model model) throws Exception {
+		qnaFileVO = qnaService.getFileDetail(qnaFileVO);
+		model.addAttribute("file",qnaFileVO);
+		
+		return "fileDownView";
+	}
+	
 
 }
