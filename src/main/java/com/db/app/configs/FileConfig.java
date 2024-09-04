@@ -8,7 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //설정 class
 // @Configuration 을 주면 스프링이 설정파일이라고 생각함 xml느낌
 @Configuration
-
 //WebMVCConfigure 구현  => WebMVCConfigure 는 인터페이스 => 오버라이드해야함
 public class FileConfig implements WebMvcConfigurer{
 	@Value("${app.url.path}")
