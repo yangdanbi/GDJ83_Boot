@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.db.app.home.HomeController;
 import com.db.app.util.Pager;
@@ -36,8 +37,8 @@ public class QnaController {
 		
 	}
 	@PostMapping("add")
-	public String add(QnaVO qnaVO)throws Exception{
-		int result = qnaService.add(qnaVO);
+	public String add(QnaVO qnaVO,MultipartFile [] attaches)throws Exception{
+		int result = qnaService.add(qnaVO,attaches);
 		return "redirect:./list";
 		
 	}
