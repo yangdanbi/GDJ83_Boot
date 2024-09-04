@@ -18,7 +18,7 @@ public class FileManager {
 			file.mkdir();
 		}
 		//저장할 파일명 생성 중복이 되면 안됨
-		//확장자를 포함해서 파일이름을 만들기 위해 파일정보가있는 multipartFile를 이용
+		//확장자를 포함해서 파일이름을 만들기 위해 파일정보가있는 multipartFile안에 원래 이름을 통째로 가져와서 이용
 		String fileName = UUID.randomUUID().toString()+"_"+multipartFile.getOriginalFilename();
 		
 		//파일을 HDD에 저장
