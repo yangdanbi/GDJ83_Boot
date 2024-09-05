@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@Transactional(rollbackFor = Exception.class)
 public class QnaService {
 	//서비스는 매퍼가(dao) 필요함
 	@Autowired
@@ -31,8 +33,6 @@ public class QnaService {
 	@Autowired
 	private FileManager fileManager;
 
-	
-	
 	public List<QnaVO> getList(Pager pager)throws Exception{
 		pager.makeRow();
 		//getList했을떄 upload 패스를 {} 안에 넣어서 출력
@@ -40,12 +40,19 @@ public class QnaService {
 		
 		return qnaMapper.getList(pager);
 	}
+	
+	//@Transactional(rollbackFor = Exception.class)
 	public int add(QnaVO qnaVO,MultipartFile [] attaches) throws Exception{
 		log.info("=============Insert Before BoardNum: {}",qnaVO.getBoardNum());
 		int result = qnaMapper.add(qnaVO);
 		log.info("=============Insert After BoardNum: {}",qnaVO.getBoardNum());
 		//ref 값을 가져와서 다시 수정
 		result = qnaMapper.refUpdate(qnaVO);
+		
+		//0이면 update가 안된거고 그때 Exception이 일어나고 그럼 rollBack하기
+		if(result == 0) {
+			throw new Exception();
+		}
 		
 		//파일을 하드디스크에 저장하고 db에 정보를 추가
 		for(MultipartFile mf:attaches) {
