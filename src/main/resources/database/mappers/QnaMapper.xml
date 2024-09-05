@@ -86,9 +86,11 @@
 	  	FROM 
 	  	QNAFILES 
 	  	WHERE FILE_NUM = #{fileNum} 
-	  	
-	  
-	  
 	  </select>
+	  
+	  <insert id="addRole" parameterType="java.util.Map">
+	  	INSERT INTO MEMBER_ROLE
+	  	VALUES(#{username},#{roleNum})
+	  </insert>
   
   </mapper>
