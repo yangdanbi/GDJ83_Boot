@@ -40,12 +40,19 @@ public class QnaService {
 		
 		return qnaMapper.getList(pager);
 	}
+	
 	public int add(QnaVO qnaVO,MultipartFile [] attaches) throws Exception{
 		log.info("=============Insert Before BoardNum: {}",qnaVO.getBoardNum());
 		int result = qnaMapper.add(qnaVO);
 		log.info("=============Insert After BoardNum: {}",qnaVO.getBoardNum());
 		//ref 값을 가져와서 다시 수정
 		result = qnaMapper.refUpdate(qnaVO);
+
+		//예외 발생시킴
+		//예외가 나면 그 즉시 메서드 종료
+		if(result == 1) {
+			throw new Exception();
+		}
 		
 		//파일을 하드디스크에 저장하고 db에 정보를 추가
 		for(MultipartFile mf:attaches) {
