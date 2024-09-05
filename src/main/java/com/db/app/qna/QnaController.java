@@ -33,7 +33,8 @@ public class QnaController {
 		return this.board;
 	}
 	
-	
+	//void면 요청url에 매핑된걸 합치는게 bean의 이름 qna/list 이렇게 생긴 이름이 없으면 jsp로 이동
+	//foword
 	@GetMapping("list")
 	public void getList(Pager pager,Model model)throws Exception{
 		List<QnaVO> ar = qnaService.getList(pager);
@@ -59,7 +60,7 @@ public class QnaController {
 		qnaVO = qnaService.getDetail(qnaVO);
 		model.addAttribute("vo",qnaVO);
 	}
-	
+	//fileDownView 와 같은 bean의 이름을 찾으러감 이름이 있어서 이동
 	@GetMapping("fileDown")
 	public String fileDown(QnaFileVO qnaFileVO,Model model) throws Exception {
 		qnaFileVO = qnaService.getFileDetail(qnaFileVO);

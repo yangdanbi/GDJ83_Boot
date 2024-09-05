@@ -17,6 +17,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
+//BeanNameViewResolve
+//Bean의 이름: 메서드 명 첫글자를 대문자로 바꿈
+//다른이름을 주고싶으면 @Component("a")
 @Component
 @Slf4j
 public class FileDownView extends AbstractView {
