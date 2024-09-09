@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import com.db.app.interceptors.AdminCheckInterceptor;
 import com.db.app.interceptors.LoginInterceptor;
@@ -15,6 +16,8 @@ public class interceptorConfig implements WebMvcConfigurer {
 	private LoginInterceptor loginInterceptor;
 	@Autowired
 	private AdminCheckInterceptor adminCheckInterceptor;
+	@Autowired
+	private LocaleChangeInterceptor localeChangeInterceptor;
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -26,6 +29,8 @@ public class interceptorConfig implements WebMvcConfigurer {
 		
 		registry.addInterceptor(adminCheckInterceptor)
 				.addPathPatterns("/admin/*");  //qna의 모든 것에 다 제한걸어놓고 
+		registry.addInterceptor(localeChangeInterceptor)
+		.addPathPatterns("/**");  //qna의 모든 것에 다 제한걸어놓고 
 	}
 
 }
