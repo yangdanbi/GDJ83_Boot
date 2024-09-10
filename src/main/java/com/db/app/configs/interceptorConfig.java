@@ -26,9 +26,9 @@ public class interceptorConfig implements WebMvcConfigurer {
 //		registry.addInterceptor(loginInterceptor)
 //				.addPathPatterns("/qna/*")  //qna의 모든 것에 다 제한걸어놓고 
 //				.excludePathPatterns("/qna/list"); //qna 리스트는 로그인을 안해도 볼수 있게 해제
-		
-		registry.addInterceptor(adminCheckInterceptor)
-				.addPathPatterns("/admin/*");  //qna의 모든 것에 다 제한걸어놓고 
+//		
+//		registry.addInterceptor(adminCheckInterceptor)
+//				.addPathPatterns("/admin/*");  //qna의 모든 것에 다 제한걸어놓고 
 		
 		registry.addInterceptor(localeChangeInterceptor)
 		.addPathPatterns("/**");  //qna의 모든 것에 다 제한걸어놓고 
