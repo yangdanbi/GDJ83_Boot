@@ -119,8 +119,9 @@ public class SecurityConfig {
 								.maximumSessions(1)//최대허용 갯수, -1이면 무한대 허용 0은 동시접속x
 								//false 기존사용자 만료, true 새로운 사용자 인증 실패
 								.maxSessionsPreventsLogin(false)
-								//세션이 만료되었을 경우 리다이렉트 할 url
+								//세션이 만료되었을 경우 리다이렉트 할 URL
 								.expiredUrl("/member/check")
+								
 								
 								
 								
