@@ -15,26 +15,26 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class MemberService implements UserDetailsService{
+public class MemberService  { //implements UserDetailsService
 	@Autowired
 	private MemberMapper memberMapper;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		MemberVO memberVO = new MemberVO();
-		memberVO.setUsername(username);
-		try {
-			memberVO=memberMapper.detail(memberVO);
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return memberVO;
-	}
+//	@Override
+//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//		MemberVO memberVO = new MemberVO();
+//		memberVO.setUsername(username);
+//		try {
+//			memberVO=memberMapper.detail(memberVO);
+//			
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return memberVO;
+//	}
 	
 	public boolean memberValidate(MemberVO memberVO,BindingResult bindingResult) throws Exception {
 		boolean check =false;

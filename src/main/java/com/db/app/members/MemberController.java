@@ -1,6 +1,12 @@
 package com.db.app.members;
 
+import java.util.Enumeration;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +30,14 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@GetMapping("check")
+	public void check() throws Exception{
+		
+		
+	}
+	
+	
 	
 	@GetMapping("update")
 	public String update(HttpSession session,Model model) throws Exception{
@@ -53,8 +67,25 @@ public class MemberController {
 	
 	
 	@GetMapping("mypage")
-	public void mypage() throws Exception{
+	public void mypage(HttpSession session) throws Exception{
+		Enumeration<String> en = session.getAttributeNames();
+		while(en.hasMoreElements()) {
+			String name = en.nextElement();
+			log.info("Name : {} ",name);//SPRING_SECURITY_CONTEXT 
+		}
+		SecurityContextImpl sc =(SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
+		log.info("SecurityContextImpl {} : ", sc);
 		
+		SecurityContext context = SecurityContextHolder.getContext();
+		log.info("Context : {}", context);
+		
+		Authentication authentication = context.getAuthentication();
+		log.info("Authentication : {}", authentication);
+		
+		MemberVO memberVO = (MemberVO)authentication.getPrincipal();
+		log.info("MemberVO : {}", memberVO);
+		
+		log.info("Name : {}",authentication.getName());
 	}
 	//add
 	@GetMapping("add")
@@ -74,14 +105,28 @@ public class MemberController {
 //		if(bindingResult.hasErrors()) {
 //			return "member/add";
 //		}
-		//int result=memberService.add(memberVO);
+		int result=memberService.add(memberVO);
 		return "redirect:/";
 	}
 	
 	//login
 	@GetMapping("login")
-	public void login()throws Exception{
+	public String login(String message, Model model)throws Exception{
+		model.addAttribute("message",message);
 		
+		SecurityContext context = SecurityContextHolder.getContext();
+		log.info("Context : {} " + context);
+		if(context == null) {
+			return "member/login";
+			
+		}
+		String user =context.getAuthentication().getPrincipal().toString();
+		log.info("User : {} " + user);
+		if(user.equals("anonymousUser")) {
+			return "member/login";
+		}
+		return "redirect:/";
+
 	}
 //	@PostMapping("login")
 //	public String login(MemberVO memberVO,HttpSession session)throws Exception{
