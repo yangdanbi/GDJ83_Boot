@@ -33,6 +33,10 @@
 		<c:forEach items="${member.vos}" var="r">
 			<h2>${r.roleName}</h2>
 		</c:forEach>
+		
+		<a href="/member/logout">logout</a>
+		
+		
 	</sec:authorize>
 	
 	

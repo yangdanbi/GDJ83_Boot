@@ -52,7 +52,7 @@ public class MemberUserService extends DefaultOAuth2UserService implements UserD
 		OAuth2User auth2User=super.loadUser(userRequest);
 		
 		if(sns.equals("kakao")) {
-			auth2User = this.useKaKao(auth2User);
+			auth2User = this.useKaKao(userRequest);
 		}
 		if(sns.equals("naver")) {
 			
@@ -62,17 +62,24 @@ public class MemberUserService extends DefaultOAuth2UserService implements UserD
 		//log.error("ClientId : {} " , registration.getClientId());
 		return auth2User;
 	}
-	private OAuth2User useKaKao(OAuth2User auth2User) throws OAuth2AuthenticationException{
-		
+	private OAuth2User useKaKao(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException{
+		OAuth2User auth2User = super.loadUser(userRequest); 
 		log.error("====================================================================");
 		log.error("ID : {}", auth2User.getName());
 		log.error("Attribute : {}", auth2User.getAttributes());
 		log.error("Authorities : {}", auth2User.getAuthorities());
 		log.error("username : {}", auth2User.getName());
-		Map<String, Object> attribute = auth2User.getAttributes();
-		Map<String, Object> properties = (Map<String, Object>)attribute.get("properties");
+		
+		Map<String, Object> attributes = auth2User.getAttributes();
+		Map<String, Object> properties = (Map<String, Object>)attributes.get("properties");
+		
 		log.error("properties : {}", properties);
 		MemberVO memberVO= new MemberVO();
+		
+		memberVO.setAccessToken(userRequest.getAccessToken().getTokenValue());
+		memberVO.setSns(userRequest.getClientRegistration().getRegistrationId());
+		memberVO.setAttributes(attributes);
+		
 		memberVO.setUsername(auth2User.getName());
 		memberVO.setName(properties.get("nickname").toString());
 		
