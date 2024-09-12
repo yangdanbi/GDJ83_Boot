@@ -92,6 +92,7 @@ public class SecurityConfig {
 					logout
 						//RequestMatcher("url") , 로그아웃 url 지정
 						.logoutUrl("/member/logout")//로그아웃 url 지정
+						.logoutSuccessHandler(null)
 						//.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")) 둘중 골라서 사용
 						.logoutSuccessUrl("/")
 						.invalidateHttpSession(true) //ture 면 session 만료, false면 만료x
@@ -121,10 +122,13 @@ public class SecurityConfig {
 								.maxSessionsPreventsLogin(false)
 								//세션이 만료되었을 경우 리다이렉트 할 URL
 								.expiredUrl("/member/check")
-								
-								
-								
-								
+						)
+				//소셜로그인
+				.oauth2Login(
+						oauth2 -> 
+							oauth2.userInfoEndpoint(
+									user -> user.userService(memberUserService)
+							)
 						)
 				
 			;

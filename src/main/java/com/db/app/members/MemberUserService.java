@@ -1,14 +1,29 @@
 package com.db.app.members;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Properties;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
+
+import lombok.extern.slf4j.Slf4j;
+
 @Service
-public class MemberUserService implements UserDetailsService{
+@Slf4j
+public class MemberUserService extends DefaultOAuth2UserService implements UserDetailsService {
 	@Autowired
 	private MemberMapper memberMapper;
 	
@@ -26,5 +41,47 @@ public class MemberUserService implements UserDetailsService{
 		}
 		return memberVO;
 	}
-
+	
+	@Override
+	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+		//log.error("Token : {} " , userRequest.getAccessToken());
+		ClientRegistration registration= userRequest.getClientRegistration();
+		
+		String sns = registration.getRegistrationId();
+		
+		OAuth2User auth2User=super.loadUser(userRequest);
+		
+		if(sns.equals("kakao")) {
+			auth2User = this.useKaKao(auth2User);
+		}
+		if(sns.equals("naver")) {
+			
+			
+		}
+		//유저정보가 아닌 개발자의 key
+		//log.error("ClientId : {} " , registration.getClientId());
+		return auth2User;
+	}
+	private OAuth2User useKaKao(OAuth2User auth2User) throws OAuth2AuthenticationException{
+		
+		log.error("====================================================================");
+		log.error("ID : {}", auth2User.getName());
+		log.error("Attribute : {}", auth2User.getAttributes());
+		log.error("Authorities : {}", auth2User.getAuthorities());
+		log.error("username : {}", auth2User.getName());
+		Map<String, Object> attribute = auth2User.getAttributes();
+		Map<String, Object> properties = (Map<String, Object>)attribute.get("properties");
+		log.error("properties : {}", properties);
+		MemberVO memberVO= new MemberVO();
+		memberVO.setUsername(auth2User.getName());
+		memberVO.setName(properties.get("nickname").toString());
+		
+		List<RoleVO> list = new ArrayList<>();
+		RoleVO roleVO = new RoleVO();
+		roleVO.setRoleName("ROLE_USER");
+		list.add(roleVO);
+		memberVO.setVos(list);
+		return memberVO;
+	} 
+	
 }

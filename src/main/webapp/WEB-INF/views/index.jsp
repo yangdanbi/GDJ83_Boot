@@ -20,6 +20,8 @@
 	<!--  isAuthenticated : 인증이 성공했을때  -->
 	<sec:authorize access="!isAuthenticated()">
 		<h1>Login 전</h1>
+		<a href="/member/login">Login</a>
+		<a href="/oauth2/authorization/kakao?prompt=login">KaKao Login</a>
 	</sec:authorize>
 	
     <sec:authorize access="isAuthenticated()">
