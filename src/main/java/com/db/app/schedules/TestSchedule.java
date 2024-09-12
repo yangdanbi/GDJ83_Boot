@@ -30,12 +30,12 @@ public class TestSchedule {
 	@Scheduled(cron = "*/5 * * * * *") //초 분 시간 며칠 몇월 요일
 	public void test3()throws Exception {
 		log.error("============= Schedule Test3 ===============");
-		QnaVO qnaVO = new QnaVO();
-		qnaVO.setBoardWriter("test");
-		qnaVO.setBoardTitle("Title");
-		qnaVO.setBoardContents("Contents");
-		qnaMapper.add(qnaVO);
-		qnaMapper.refUpdate(qnaVO);
+//		QnaVO qnaVO = new QnaVO();
+//		qnaVO.setBoardWriter("test");
+//		qnaVO.setBoardTitle("Title");
+//		qnaVO.setBoardContents("Contents");
+//		qnaMapper.add(qnaVO);
+//		qnaMapper.refUpdate(qnaVO);
 	}
 
 }
