@@ -33,11 +33,11 @@
 	<dependencies>
 
 		<!--Social Login API 추가-->
-		<dependency>
+	<!--	<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-oauth2-client</artifactId>
 		</dependency>
-		
+		-->
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -74,10 +74,10 @@
 		    <scope>provided</scope>
 		</dependency>
 		
-		<dependency>
+<!--		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+		</dependency>-->
 		
 			<!--security tag -->
 	<dependency>

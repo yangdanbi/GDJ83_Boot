@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.db.app.home.HomeController;
@@ -22,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/qna/*")//qna로 시작하는 모든것은 여기로 와라
 @Slf4j
+@ResponseBody
 public class QnaController {
 	@Autowired
 	private QnaService qnaService;
@@ -38,14 +40,10 @@ public class QnaController {
 	//void면 요청url에 매핑된걸 합치는게 bean의 이름 qna/list 이렇게 생긴 이름이 없으면 jsp로 이동
 	//foword
 	@GetMapping("list")
-	public void getList(Pager pager,Model model)throws Exception{
+	public List<QnaVO> getList(Pager pager)throws Exception{
 		List<QnaVO> ar = qnaService.getList(pager);
-		model.addAttribute("list",ar);
-		model.addAttribute("pager",pager);
-	
-		log.info("Pager : {} : {}"+ pager,pager.getKind());
-		//return "redirect:../";
 		
+		return ar;
 	}
 	@GetMapping("add")
 	public void add(@ModelAttribute QnaVO qnaVO)throws Exception{
@@ -63,9 +61,10 @@ public class QnaController {
 		
 	}
 	@GetMapping("detail")
-	public void getDetail(QnaVO qnaVO,Model model) throws Exception{
+	public QnaVO getDetail(QnaVO qnaVO) throws Exception{
 		qnaVO = qnaService.getDetail(qnaVO);
-		model.addAttribute("vo",qnaVO);
+		return qnaVO;
+		
 	}
 	//fileDownView 와 같은 bean의 이름을 찾으러감 이름이 있어서 이동
 	@GetMapping("fileDown")
