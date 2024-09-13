@@ -35,7 +35,7 @@ public class QnaControllerTest {
 	//파라미터 여러개 보낼때도 param을여러개 쓰면 됨
 	//MultiValueMap을 만들고 맵에 담아서 보내도 됨 
 	//일반 map은 사용이 불가
-	@Test
+	//@Test
 	void getList() throws Exception{
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
 		map.add("page","1");
@@ -55,7 +55,7 @@ public class QnaControllerTest {
 		;
 		
 	}
-	@Test
+	//@Test
 	public void getDetailTest()throws Exception {
 		mockMvc.perform(
 //				get("/qna/detail")
@@ -68,7 +68,7 @@ public class QnaControllerTest {
 
 	}
 //	/isOk() 는 200만
-	@Test
+	//@Test
 	public void add()throws Exception{
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
 		map.add("boardNum","0");

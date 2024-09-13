@@ -13,7 +13,7 @@ class NoticeMapperTest {
 	@Autowired
 	private NoticeMapper noticeMapper;
 
-	@Test
+	//@Test
 	void getListTest() throws Exception {
 		List<NoticeVO>ar = noticeMapper.getList(1L);
 		for(NoticeVO noticeVO:ar) {

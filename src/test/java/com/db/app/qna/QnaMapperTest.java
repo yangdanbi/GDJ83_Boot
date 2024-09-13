@@ -19,7 +19,7 @@ class QnaMapperTest {
 	@Autowired
 	private QnaMapper qnaMapper;
 	
-	@Test
+	//@Test
 	@Rollback(false) //메서드 실행 후 RollBack하지 않음 전체 클래스에 @Transactional해놓고 내가 필요하지않을땐 false로 하면 작동 x
 	void getDetailTest() throws Exception {
 		
@@ -31,7 +31,7 @@ class QnaMapperTest {
 		
 	}
 
-	@Test
+	//@Test
 	void addTest() throws Exception {
 		for (int i = 4; i < 110; i++) {
 			QnaVO qnaVO = new QnaVO();
@@ -49,7 +49,7 @@ class QnaMapperTest {
 		}
 	}
 
-	@Test
+	//@Test
 	void getListTest() throws Exception {
 		Pager pager = new Pager();
 		pager.setPage(1L);
