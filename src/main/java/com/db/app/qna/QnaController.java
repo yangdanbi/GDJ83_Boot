@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,6 +42,7 @@ public class QnaController {
 	//void면 요청url에 매핑된걸 합치는게 bean의 이름 qna/list 이렇게 생긴 이름이 없으면 jsp로 이동
 	//foword
 	@GetMapping("list")
+	@CrossOrigin
 	public List<QnaVO> getList(Pager pager)throws Exception{
 		List<QnaVO> ar = qnaService.getList(pager);
 		
@@ -60,8 +63,11 @@ public class QnaController {
 		return "redirect:./list";
 		
 	}
-	@GetMapping("detail")
-	public QnaVO getDetail(QnaVO qnaVO) throws Exception{
+	@GetMapping("detail/{boardNum}/{name}")
+	//public QnaVO getDetail(@PathVariable Long boardNum, QnaVO qnaVO) throws Exception{ , required = false, value="1"
+	public QnaVO getDetail(@PathVariable(name = "boardNum") Long bn,@PathVariable String name, QnaVO qnaVO) throws Exception{
+		log.info("BoardNum : {}",bn);
+		log.info("Name : {}",name);
 		qnaVO = qnaService.getDetail(qnaVO);
 		return qnaVO;
 		
